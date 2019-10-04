@@ -24,6 +24,17 @@ const MyExamplePlaceholderComponent = React.createClass({
       loading
     } = that.state;
 
+    const formattedLineItems = that.state.json_data.map( (lineItem) => 
+      <tr>
+        <td>{lineItem.id}</td>
+        <td>{lineItem.line_item_name}</td>
+        <td>{lineItem.campaign_name}</td>
+        <td>{lineItem.booked_amount}</td>
+        <td>{lineItem.actual_amount}</td>
+        <td>{lineItem.adjustments}</td>
+      </tr>
+    )
+
     return (
       <div>
         {function(){
@@ -36,11 +47,10 @@ const MyExamplePlaceholderComponent = React.createClass({
           } else {
             return (
               <p>
-                Please implement your table rendering here!
-                <br/>
-                <small>
-                  (find me in app/assets/javascripts/invoice/app.js.jsx)
-                </small>
+                <table>
+                {formattedLineItems}
+
+                </table>
               </p>
             );
           }
