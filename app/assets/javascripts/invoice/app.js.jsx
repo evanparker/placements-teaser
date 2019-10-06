@@ -24,15 +24,8 @@ const MyExamplePlaceholderComponent = React.createClass({
       loading
     } = that.state;
 
-    const formattedLineItems = that.state.json_data.map( (lineItem) => 
-      <tr>
-        <td>{lineItem.id}</td>
-        <td>{lineItem.line_item_name}</td>
-        <td>{lineItem.campaign_name}</td>
-        <td>{lineItem.booked_amount}</td>
-        <td>{lineItem.actual_amount}</td>
-        <td>{lineItem.adjustments}</td>
-      </tr>
+    const formattedLineItems = that.state.json_data.slice(0,10).map( (lineItem) => 
+      <LineItem key={lineItem.id} lineItem={lineItem}></LineItem>
     )
 
     return (
@@ -46,12 +39,24 @@ const MyExamplePlaceholderComponent = React.createClass({
             );
           } else {
             return (
-              <p>
-                <table>
-                {formattedLineItems}
-
-                </table>
-              </p>
+              <table className='custom-table'>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Line Item Name</th>
+                    <th>Campaign Name</th>
+                    <th>Booked Amount</th>
+                    <th>Actual Amount</th>
+                    <th>Adjustments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {formattedLineItems}
+                </tbody>
+                <tfoot>
+                  <tr><td>TODO: Pagination Conttols</td></tr>
+                </tfoot>
+              </table>
             );
           }
         }()}
@@ -71,3 +76,15 @@ const MyExamplePlaceholderComponent = React.createClass({
 })();
 
 
+function LineItem(props) {
+  return (
+    <tr>
+      <td>{props.lineItem.id}</td>
+      <td>{props.lineItem.line_item_name}</td>
+      <td>{props.lineItem.campaign_name}</td>
+      <td>{props.lineItem.booked_amount}</td>
+      <td>{props.lineItem.actual_amount}</td>
+      <td>{props.lineItem.adjustments}</td>
+    </tr>
+  )
+}

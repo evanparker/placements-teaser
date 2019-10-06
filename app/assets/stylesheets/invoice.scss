@@ -1,3 +1,59 @@
 // Place all the styles related to the Invoice controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$table-border-color: rgba(0, 0, 0, 0.12) !default;
+$table-striped-color: rgba(242, 242, 242, 0.5) !default;
+$table-highlight-color: #ffff8d;
+
+// Tables
+table.custom-table {
+  border: none;
+  th,
+  td {
+    border: none;
+  }
+}
+
+
+table.custom-table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  tr {
+    border-bottom: none;
+  }
+
+  > tbody {
+    > tr:nth-child(odd) {
+      background-color: $table-striped-color;
+    }
+
+    > tr > td {
+      border-radius: 0;
+    }
+  }
+
+  tbody > tr {
+    transition: background-color 0.25s ease;
+    &:hover {
+      background-color: $table-highlight-color;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid $table-border-color;
+  }
+
+  td,
+  th {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+  }
+}
