@@ -66,10 +66,10 @@ class Pagination extends React.Component {
     this.paginationCount = 10;
     this.pageCount = Math.ceil(this.data.length / this.paginationCount);
     this.currentPage = 1;
-    this.currentDataDisplay = this.data.slice(
+    this.state = { currentDataDisplay: this.data.slice(
       (this.currentPage - 1) * this.paginationCount,
       this.currentPage * this.paginationCount
-    );
+    ) };
 
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
@@ -78,18 +78,16 @@ class Pagination extends React.Component {
 
   nextPage() {
     this.currentPage = Math.min(this.currentPage+1, this.pageCount);
-    this.currentDataDisplay = this.data.slice(
-      (this.currentPage - 1) * this.paginationCount,
-      this.currentPage * this.paginationCount
-    );
+    this.setState( 
+      { currentDataDisplay: this.data.slice( (this.currentPage - 1) * this.paginationCount, this.currentPage * this.paginationCount) }
+    )
   }
   prevPage() {
     this.currentPage = Math.max(this.currentPage-1, 1);
-    this.currentDataDisplay = this.data.slice(
-      (this.currentPage - 1) * this.paginationCount,
-      this.currentPage * this.paginationCount
-    );  }
-
+    this.setState( 
+      { currentDataDisplay: this.data.slice( (this.currentPage - 1) * this.paginationCount, this.currentPage * this.paginationCount) }
+    )
+  }
   render() {
     let table = (
       <table className='custom-table'>
@@ -103,7 +101,7 @@ class Pagination extends React.Component {
             <th>Adjustments</th>
           </tr>
         </thead>
-        <FormattedLineItems items={this.currentDataDisplay}></FormattedLineItems>
+        <FormattedLineItems items={this.state.currentDataDisplay}></FormattedLineItems>
         <tfoot>
           <tr>
             <th onClick={this.prevPage}>prev</th>
