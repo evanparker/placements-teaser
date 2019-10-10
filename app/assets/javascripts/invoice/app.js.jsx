@@ -73,21 +73,25 @@ class Pagination extends React.Component {
 
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
-
+    this.setPage = this.setPage.bind(this);
   }
 
   nextPage() {
-    this.currentPage = Math.min(this.currentPage+1, this.pageCount);
-    this.setState( 
-      { currentDataDisplay: this.data.slice( (this.currentPage - 1) * this.paginationCount, this.currentPage * this.paginationCount) }
-    )
+    this.setPage(Math.min(this.currentPage+1, this.pageCount));
   }
   prevPage() {
-    this.currentPage = Math.max(this.currentPage-1, 1);
+    this.setPage(Math.max(this.currentPage-1, 1));
+  }
+  setPage( page ) {
+    page = Math.min( page, this.pageCount);
+    page = Math.max( page, 1 );
+
+    this.currentPage = page;
     this.setState( 
       { currentDataDisplay: this.data.slice( (this.currentPage - 1) * this.paginationCount, this.currentPage * this.paginationCount) }
     )
   }
+
   render() {
     let table = (
       <table className='custom-table'>
@@ -104,9 +108,19 @@ class Pagination extends React.Component {
         <FormattedLineItems items={this.state.currentDataDisplay}></FormattedLineItems>
         <tfoot>
           <tr>
-            <th onClick={this.prevPage}>prev</th>
-            <th>{this.currentPage}/{this.pageCount}</th>
-            <th onClick={this.nextPage}>next</th>
+            <td colSpan="6">
+              <PageButton text="first" page="1" fn={this.setPage}></PageButton>
+              { (this.currentPage - 3 > 0) ? <PageButton text={this.currentPage - 3} page={this.currentPage - 3} fn={this.setPage}></PageButton> : null }
+              { (this.currentPage - 2 > 0) ? <PageButton text={this.currentPage - 2} page={this.currentPage - 2} fn={this.setPage}></PageButton> : null }
+              { (this.currentPage - 1 > 0) ? <PageButton text={this.currentPage - 1} page={this.currentPage - 1} fn={this.setPage}></PageButton> : null }
+
+              {this.currentPage}/{this.pageCount}
+
+              { (this.currentPage + 1 > 0) ? <PageButton text={this.currentPage + 1} page={this.currentPage + 1} fn={this.setPage}></PageButton> : null }
+              { (this.currentPage + 2 > 0) ? <PageButton text={this.currentPage + 2} page={this.currentPage + 2} fn={this.setPage}></PageButton> : null }
+              { (this.currentPage + 3 > 0) ? <PageButton text={this.currentPage + 3} page={this.currentPage + 3} fn={this.setPage}></PageButton> : null }
+              <PageButton text="last" page={this.pageCount} fn={this.setPage}></PageButton>
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -115,6 +129,16 @@ class Pagination extends React.Component {
   }
 }
 
+
+function PageButton(props) {
+  this.handleClick = function() {
+    props.fn(props.page)
+  }
+
+  return (
+    <button onClick={handleClick}>{props.text}</button>
+  )
+}
 
 
 function FormattedLineItems(props) {
