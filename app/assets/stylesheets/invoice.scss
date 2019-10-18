@@ -9,19 +9,15 @@ $table-highlight-color: #ffff8d;
 
 // Tables
 table.custom-table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
   border: none;
   th,
   td {
     border: none;
   }
-}
-
-
-table.custom-table {
-  width: 100%;
-  display: table;
-  border-collapse: collapse;
-  border-spacing: 0;
 
   tr {
     border-bottom: none;
