@@ -110,15 +110,15 @@ class Pagination extends React.Component {
           <tr>
             <td colSpan="6">
               <PageButton text="first" page="1" fn={this.setPage}></PageButton>
-              { (this.currentPage - 3 > 0) ? <PageButton text={this.currentPage - 3} page={this.currentPage - 3} fn={this.setPage}></PageButton> : null }
-              { (this.currentPage - 2 > 0) ? <PageButton text={this.currentPage - 2} page={this.currentPage - 2} fn={this.setPage}></PageButton> : null }
-              { (this.currentPage - 1 > 0) ? <PageButton text={this.currentPage - 1} page={this.currentPage - 1} fn={this.setPage}></PageButton> : null }
+              { (this.currentPage - 3 > 0) ? <PageButton text={this.currentPage - 3} page={this.currentPage - 3} fn={this.setPage.bind(this)}></PageButton> : null }
+              { (this.currentPage - 2 > 0) ? <PageButton text={this.currentPage - 2} page={this.currentPage - 2} fn={this.setPage.bind(this)}></PageButton> : null }
+              { (this.currentPage - 1 > 0) ? <PageButton text={this.currentPage - 1} page={this.currentPage - 1} fn={this.setPage.bind(this)}></PageButton> : null }
 
               {this.currentPage}/{this.pageCount}
 
-              { (this.currentPage + 1 > 0) ? <PageButton text={this.currentPage + 1} page={this.currentPage + 1} fn={this.setPage}></PageButton> : null }
-              { (this.currentPage + 2 > 0) ? <PageButton text={this.currentPage + 2} page={this.currentPage + 2} fn={this.setPage}></PageButton> : null }
-              { (this.currentPage + 3 > 0) ? <PageButton text={this.currentPage + 3} page={this.currentPage + 3} fn={this.setPage}></PageButton> : null }
+              { (this.currentPage + 1 > 0) ? <PageButton text={this.currentPage + 1} page={this.currentPage + 1} fn={this.setPage.bind(this)}></PageButton> : null }
+              { (this.currentPage + 2 > 0) ? <PageButton text={this.currentPage + 2} page={this.currentPage + 2} fn={this.setPage.bind(this)}></PageButton> : null }
+              { (this.currentPage + 3 > 0) ? <PageButton text={this.currentPage + 3} page={this.currentPage + 3} fn={this.setPage.bind(this)}></PageButton> : null }
               <PageButton text="last" page={this.pageCount} fn={this.setPage}></PageButton>
             </td>
           </tr>
@@ -131,12 +131,8 @@ class Pagination extends React.Component {
 
 
 function PageButton(props) {
-  this.handleClick = function() {
-    props.fn(props.page)
-  }
-
   return (
-    <button onClick={handleClick}>{props.text}</button>
+    <button onClick={() =>props.fn(props.page)}>{props.text}</button>
   )
 }
 
